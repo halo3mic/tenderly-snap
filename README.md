@@ -4,12 +4,6 @@ Made from [@metamask/template-snap-monorepo](https://github.com/MetaMask/templat
 
 # About
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/da44bbb7-b6d8-4dd5-8e46-5031f027fcfd/Untitled.png)
-
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/727af367-bf50-405f-8955-1ab066576c5c/Untitled.png)
-
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/01360d78-31fa-4d56-82ed-5ec166adbcf8/Untitled.png)
-
 This project combines power of Tenderly simulation with MetaMask Snaps for improved transparency of dApp contract calls. 
 
 Before transaction confirmation user is provided with: 
@@ -20,6 +14,12 @@ Before transaction confirmation user is provided with:
 - Event logs
 - Call traces
 - Link to simulation in Tenderly Dashboard
+
+<p float="left">
+  <img src="https://user-images.githubusercontent.com/46010359/228225024-52b93ed8-8101-4207-81cd-b2cf630e4bef.png" width="300" height="900" />
+  <img src="https://user-images.githubusercontent.com/46010359/228225492-04e234d4-3002-496b-ac93-e6d40824a804.png" width="300" height="900" />
+  <img src="https://user-images.githubusercontent.com/46010359/228225527-3c69e5af-50f8-445e-819e-9232bdbb56ef.png" width="300" height="900" />
+</p>
 
 ### Metamask Snap
 
