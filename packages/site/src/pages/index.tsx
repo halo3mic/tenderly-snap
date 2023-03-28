@@ -4,14 +4,18 @@ import { MetamaskActions, MetaMaskContext } from '../hooks';
 import {
   connectSnap,
   getSnap,
-  sendHello,
+  sendOkTx,
+  sendFailTx,
+  updateAccessKey,
   shouldDisplayReconnectButton,
 } from '../utils';
 import {
   ConnectButton,
   InstallFlaskButton,
   ReconnectButton,
-  SendHelloButton,
+  SendOkTx,
+  SendFailTx,
+  UpdateAccessKeyButton,
   Card,
 } from '../components';
 
@@ -117,9 +121,27 @@ const Index = () => {
     }
   };
 
-  const handleSendHelloClick = async () => {
+  const handleSendOkTxClick = async () => {
     try {
-      await sendHello();
+      await sendOkTx();
+    } catch (e) {
+      console.error(e);
+      dispatch({ type: MetamaskActions.SetError, payload: e });
+    }
+  };
+
+  const handleSendFailTxClick = async () => {
+    try {
+      await sendFailTx();
+    } catch (e) {
+      console.error(e);
+      dispatch({ type: MetamaskActions.SetError, payload: e });
+    }
+  };
+
+  const handleUpdateAccessKeyClick = async () => {
+    try {
+      await updateAccessKey();
     } catch (e) {
       console.error(e);
       dispatch({ type: MetamaskActions.SetError, payload: e });
@@ -129,11 +151,11 @@ const Index = () => {
   return (
     <Container>
       <Heading>
-        Welcome to <Span>template-snap</Span>
+        Welcome to <Span>tenderly-snap</Span>
       </Heading>
-      <Subtitle>
+      {/* <Subtitle>
         Get started by editing <code>src/index.ts</code>
-      </Subtitle>
+      </Subtitle> */}
       <CardContainer>
         {state.error && (
           <ErrorMessage>
@@ -185,12 +207,12 @@ const Index = () => {
         )}
         <Card
           content={{
-            title: 'Send Hello message',
+            title: 'Update Tenderly credentials',
             description:
-              'Display a custom message within a confirmation screen in MetaMask.',
+              'Update Tenderly user-id, project-id and access-key. Required to interact with Tenderly API.',
             button: (
-              <SendHelloButton
-                onClick={handleSendHelloClick}
+              <UpdateAccessKeyButton
+                onClick={handleUpdateAccessKeyClick}
                 disabled={!state.installedSnap}
               />
             ),
@@ -202,14 +224,52 @@ const Index = () => {
             !shouldDisplayReconnectButton(state.installedSnap)
           }
         />
-        <Notice>
+        <Card
+          content={{
+            title: 'Send OK tx',
+            description:
+              'Send an example of a successful transaction. \n⚠️ Don\'t confirm! ⚠️',
+            button: (
+              <SendOkTx
+                onClick={handleSendOkTxClick}
+                disabled={!state.installedSnap}
+              />
+            ),
+          }}
+          disabled={!state.installedSnap}
+          fullWidth={
+            state.isFlask &&
+            Boolean(state.installedSnap) &&
+            !shouldDisplayReconnectButton(state.installedSnap)
+          }
+        />
+        <Card
+          content={{
+            title: 'Send FAIL tx',
+            description:
+              'Send an example of a failed transaction. \n⚠️ Don\'t confirm! ⚠️',
+            button: (
+              <SendFailTx
+                onClick={handleSendFailTxClick}
+                disabled={!state.installedSnap}
+              />
+            ),
+          }}
+          disabled={!state.installedSnap}
+          fullWidth={
+            state.isFlask &&
+            Boolean(state.installedSnap) &&
+            !shouldDisplayReconnectButton(state.installedSnap)
+          }
+        />
+        {/* <Notice>
           <p>
             Please note that the <b>snap.manifest.json</b> and{' '}
             <b>package.json</b> must be located in the server root directory and
             the bundle must be hosted at the location specified by the location
             field.
           </p>
-        </Notice>
+        </Notice> */}
       </CardContainer>
     </Container>
   );

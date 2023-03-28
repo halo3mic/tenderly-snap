@@ -1,13 +1,13 @@
 {
   "version": "0.1.0",
-  "description": "An example Snap written in TypeScript.",
-  "proposedName": "TypeScript Example Snap",
+  "description": "Metmask snap for Tenderly simulations.",
+  "proposedName": "Tenderly Snap",
   "repository": {
     "type": "git",
     "url": "https://github.com/MetaMask/template-snap-monorepo.git"
   },
   "source": {
-    "shasum": "naL9tJT7QHAFER/TGfTcjwUFZUMhrsWY5f8XqX28M/g=",
+    "shasum": "k0SBVca91OYzeBm6U/pRb+D3v+wu3s/tTl4GmbdNZ+U=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -18,7 +18,20 @@
     }
   },
   "initialPermissions": {
-    "snap_confirm": {}
+    "snap_dialog": {},
+    "endowment:rpc": {
+      "dapps": true,
+      "snaps": true
+    },
+    "endowment:transaction-insight": {
+      "allowTransactionOrigin": true
+    },
+    "endowment:network-access": {},
+    "snap_manageState": {},
+    "endowment:ethereum-provider": {
+      "dapps": true,
+      "snaps": true
+    }
   },
   "manifestVersion": "0.1"
 }

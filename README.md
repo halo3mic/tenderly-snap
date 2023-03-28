@@ -1,84 +1,67 @@
-# @metamask/template-snap-monorepo
+# Tenderly Snap
 
-This repository demonstrates how to develop a snap with TypeScript. For detailed instructions, see [the MetaMask documentation](https://docs.metamask.io/guide/snaps.html#serving-a-snap-to-your-local-environment).
+Made from [@metamask/template-snap-monorepo](https://github.com/MetaMask/template-snap-monorepo)
 
-MetaMask Snaps is a system that allows anyone to safely expand the capabilities of MetaMask. A _snap_ is a program that we run in an isolated environment that can customize the wallet experience.
+# About
 
-## Snaps is pre-release software
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/da44bbb7-b6d8-4dd5-8e46-5031f027fcfd/Untitled.png)
 
-To interact with (your) Snaps, you will need to install [MetaMask Flask](https://metamask.io/flask/), a canary distribution for developers that provides access to upcoming features.
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/727af367-bf50-405f-8955-1ab066576c5c/Untitled.png)
 
-## Getting Started
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/01360d78-31fa-4d56-82ed-5ec166adbcf8/Untitled.png)
 
-Clone the template-snap repository [using this template](https://github.com/MetaMask/template-snap-monorepo/generate) and setup the development environment:
+This project combines power of Tenderly simulation with MetaMask Snaps for improved transparency of dApp contract calls. 
 
-```shell
-yarn install && yarn start
-```
+Before transaction confirmation user is provided with: 
 
-## Cloning
+- Native-asset balance changes
+- Output value
+- Storage changes
+- Event logs
+- Call traces
+- Link to simulation in Tenderly Dashboard
 
-This repository contains GitHub Actions that you may find useful, see `.github/workflows` and [Releasing & Publishing](https://github.com/MetaMask/template-snap-monorepo/edit/main/README.md#releasing--publishing) below for more information.
+### Metamask Snap
 
-If you clone or create this repository outside the MetaMask GitHub organization, you probably want to run `./scripts/cleanup.sh` to remove some files that will not work properly outside the MetaMask GitHub organization.
+MetaMask Snaps are plugins that enhance MetaMask's capabilities, allowing for customized interactions with various blockchain assets and applications. The purpose of the Snaps system is to extend the functionality of MetaMask, allowing developers to create custom plugins that can interact with various blockchain networks, assets, and decentralized applications (dApps).
 
-Note that the `action-publish-release.yml` workflow contains a step that publishes the frontend of this snap (contained in the `public/` directory) to GitHub pages. If you do not want to publish the frontend to GitHub pages, simply remove the step named "Publish to GitHub Pages" in that workflow.
+- [Snap template repo](https://github.com/MetaMask/template-snap-monorepo)
+- [Dev docs](https://docs.metamask.io/guide/snaps.html#extend-the-functionality-of-metamask)
 
-If you don't wish to use any of the existing GitHub actions in this repository, simply delete the `.github/workflows` directory.
+### Tenderly simulator API
 
-## Contributing
+The Tenderly Simulator is a powerful tool designed to help Ethereum developers test and debug smart contract transactions. It provides a sandboxed environment where developers can simulate transactions, evaluate gas usage, and perform step-by-step execution tracing. Simulator can be integrated with other system through simulator API.
 
-### Testing and Linting
+- [Dev docs](https://docs.tenderly.co/simulations-and-forks/simulation-api)
 
-Run `yarn test` to run the tests once.
+# Setup
 
-Run `yarn lint` to run the linter, or run `yarn lint:fix` to run the linter and fix any automatically fixable issues.
+### Metmask dev
 
-### Releasing & Publishing
+If production version of MetaMask is installed disable it in `chome://extensions/` or start a new Chrome/Brave profile.
 
-The project follows the same release process as the other libraries in the MetaMask organization. The GitHub Actions [`action-create-release-pr`](https://github.com/MetaMask/action-create-release-pr) and [`action-publish-release`](https://github.com/MetaMask/action-publish-release) are used to automate the release process; see those repositories for more information about how they work.
+Install [MetaMask Flask development plugin](https://chrome.google.com/webstore/detail/metamask-flask-developmen/ljfoeinjpaedjfecbmggjgodbgkmjkjk). 
 
-1. Choose a release version.
+### Tenderly access
 
-- The release version should be chosen according to SemVer. Analyze the changes to see whether they include any breaking changes, new features, or deprecations, then choose the appropriate SemVer version. See [the SemVer specification](https://semver.org/) for more information.
+Open Tenderly account and create an `access-key`. 
 
-2. If this release is backporting changes onto a previous release, then ensure there is a major version branch for that version (e.g. `1.x` for a `v1` backport release).
+### Webapp
 
-- The major version branch should be set to the most recent release with that major version. For example, when backporting a `v1.0.2` release, you'd want to ensure there was a `1.x` branch that was set to the `v1.0.1` tag.
+After cloning repo run `yarn start` to start a web app on port 8000. 
 
-3. Trigger the [`workflow_dispatch`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#workflow_dispatch) event [manually](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow) for the `Create Release Pull Request` action to create the release PR.
+### Connection & Credentials
 
-- For a backport release, the base branch should be the major version branch that you ensured existed in step 2. For a normal release, the base branch should be the main branch for that repository (which should be the default value).
-- This should trigger the [`action-create-release-pr`](https://github.com/MetaMask/action-create-release-pr) workflow to create the release PR.
+With webapp running first install snap with **“Reconnect”,** then add Tenderly credentials with **“Update access key”**. Latter needs to be in format `{user_id}@{project_id}@{access_key}`. 
 
-4. Update the changelog to move each change entry into the appropriate change category ([See here](https://keepachangelog.com/en/1.0.0/#types) for the full list of change categories, and the correct ordering), and edit them to be more easily understood by users of the package.
+### Usage
 
-- Generally any changes that don't affect consumers of the package (e.g. lockfile changes or development environment changes) are omitted. Exceptions may be made for changes that might be of interest despite not having an effect upon the published package (e.g. major test improvements, security improvements, improved documentation, etc.).
-- Try to explain each change in terms that users of the package would understand (e.g. avoid referencing internal variables/concepts).
-- Consolidate related changes into one change entry if it makes it easier to explain.
-- Run `yarn auto-changelog validate --rc` to check that the changelog is correctly formatted.
+Through normal interaction with MetaMask formatted simulation response will appear in a tab on the right. 
 
-5. Review and QA the release.
+# Contributions
 
-- If changes are made to the base branch, the release branch will need to be updated with these changes and review/QA will need to restart again. As such, it's probably best to avoid merging other PRs into the base branch while review is underway.
+Please feel free to contribute.
 
-6. Squash & Merge the release.
+# Security
 
-- This should trigger the [`action-publish-release`](https://github.com/MetaMask/action-publish-release) workflow to tag the final release commit and publish the release on GitHub.
-
-7. Publish the release on npm.
-
-- Be very careful to use a clean local environment to publish the release, and follow exactly the same steps used during CI.
-- Use `npm publish --dry-run` to examine the release contents to ensure the correct files are included. Compare to previous releases if necessary (e.g. using `https://unpkg.com/browse/[package name]@[package version]/`).
-- Once you are confident the release contents are correct, publish the release using `npm publish`.
-
-## Notes
-
-- Babel is used for transpiling TypeScript to JavaScript, so when building with the CLI,
-  `transpilationMode` must be set to `localOnly` (default) or `localAndDeps`.
-- For the global `wallet` type to work, you have to add the following to your `tsconfig.json`:
-  ```json
-  {
-    "files": ["./node_modules/@metamask/snap-types/global.d.ts"]
-  }
-  ```
+Note that this is experimental code as are currently MetaMask snaps so don’t rely on it using real financial assets or accounts that you wouldn’t like exploited.
