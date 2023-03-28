@@ -15,11 +15,7 @@ Before transaction confirmation user is provided with:
 - Call traces
 - Link to simulation in Tenderly Dashboard
 
-<p float="left">
-  <img src="https://user-images.githubusercontent.com/46010359/228225024-52b93ed8-8101-4207-81cd-b2cf630e4bef.png" width="300" height="900" />
-  <img src="https://user-images.githubusercontent.com/46010359/228225492-04e234d4-3002-496b-ac93-e6d40824a804.png" width="300" height="900" />
-  <img src="https://user-images.githubusercontent.com/46010359/228225527-3c69e5af-50f8-445e-819e-9232bdbb56ef.png" width="300" height="900" />
-</p>
+![tenderly-snap-screenshot](https://user-images.githubusercontent.com/46010359/228229330-5b806e1c-056d-4ba2-b4a4-84e18cd2afde.png)
 
 ### Metamask Snap
 
